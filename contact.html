@@ -1,42 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <section class="contact-form">
-        <h2>Contact Us</h2>
-        <form id="contactForm" action="mailto:someone@example.com" method="POST" enctype="text/plain">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
+  <section class="contact-page" aria-label="Contact section">
+    <div class="contact-form" data-reveal>
+      <h2>Let’s build something great.</h2>
+      <p class="contact-subtitle">Send your details and I’ll get back to you soon.</p>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+      <form id="contactForm" novalidate>
 
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
+        <div class="grid">
+          <div class="field">
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Your name"
+              autocomplete="name"
+              required
+              minlength="2"
+              aria-required="true"
+            />
+            <label for="name">Name</label>
+            <div class="error" id="nameError" aria-live="polite"></div>
+          </div>
 
-            <button type="submit" class="submit-btn">Send Message</button>
-        </form>
-    </section>
+          <div class="field">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+              aria-required="true"
+            />
+            <label for="email">Email</label>
+            <div class="error" id="emailError" aria-live="polite"></div>
+          </div>
+        </div>
 
-    <footer>
-        <p>&copy; 2025 My Website</p>
-    </footer>
+        <div class="grid" style="margin-top:14px;">
+          <div class="field" style="grid-column: 1 / -1;">
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              placeholder="Subject (optional)"
+              autocomplete="off"
+            />
+            <label for="subject">Subject</label>
+          </div>
+        </div>
 
-    <script src="scripts.js"></script>
+        <div class="field" style="margin-top:14px;">
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Your message"
+            required
+            minlength="10"
+            aria-required="true"
+          ></textarea>
+          <label for="message">Message</label>
+
+          <div class="error" id="messageError" aria-live="polite"></div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="spinner" id="spinner" aria-hidden="true"></span>
+            <span id="submitText">Send Message</span>
+          </button>
+        </div>
+
+        <div class="toast" id="formToast" role="status" aria-live="polite">
+          <span class="dot" aria-hidden="true"></span>
+          <div>
+            <h4 id="toastTitle">Message</h4>
+            <p id="toastMessage"></p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 My Website</p>
+  </footer>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="scripts.js"></script>
+
 </body>
 </html>
+
