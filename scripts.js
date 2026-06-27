@@ -32,10 +32,151 @@
   elements.forEach((el) => io.observe(el));
 })();
 
+// Mobile nav, active indicator, scroll progress, and counters
+(() => {
+  const toggle = document.querySelector('.nav-toggle');
+  const navLinks = document.getElementById('navMenu');
+  const body = document.body;
+
+  if (toggle && navLinks) {
+    const setOpen = (open) => {
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navLinks.classList.toggle('is-open', open);
+      if (open) body.style.overflow = 'hidden';
+      else body.style.overflow = '';
+    };
+
+    toggle.addEventListener('click', () => {
+      const open = !navLinks.classList.contains('is-open');
+      setOpen(open);
+    });
+
+    navLinks.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      setOpen(false);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 820) setOpen(false);
+    });
+  }
+
+  // Active nav link highlighting + scroll progress
+  const progressBar = document.getElementById('scrollProgressBar');
+  const links = Array.from(document.querySelectorAll('.nav-link[data-nav]'));
+  const sections = links
+    .map((l) => document.getElementById(l.getAttribute('href')?.replace('#', '')))
+    .filter(Boolean);
+
+  const sectionById = new Map();
+  links.forEach((l) => {
+    const id = l.getAttribute('href')?.replace('#', '') || '';
+    if (id) sectionById.set(id, l);
+  });
+
+  const setActive = () => {
+    const headerH = document.querySelector('.site-header')?.offsetHeight || 76;
+    let activeId = 'home';
+
+    for (const [id] of sectionById) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.top - headerH <= 40) activeId = id;
+    }
+
+    links.forEach((l) => l.classList.toggle('is-active', l.getAttribute('href') === `#${activeId}`));
+  };
+
+  const setProgress = () => {
+    if (!progressBar) return;
+    const doc = document.documentElement;
+    const scrollTop = doc.scrollTop;
+    const scrollHeight = doc.scrollHeight - doc.clientHeight;
+    const pct = scrollHeight <= 0 ? 0 : (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = `${Math.max(0, Math.min(100, pct))}%`;
+  };
+
+  window.addEventListener('scroll', () => {
+    setActive();
+    setProgress();
+  }, { passive: true });
+
+  setActive();
+  setProgress();
+
+  // Animated counters
+  const counterEls = Array.from(document.querySelectorAll('[data-counter][data-target]'));
+  if (counterEls.length) {
+    const animateCounter = (el) => {
+      const target = Number(el.getAttribute('data-target')) || 0;
+      const duration = 950;
+      const start = performance.now();
+      const from = 0;
+
+      const step = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const val = Math.round(from + (target - from) * (t * (2 - t)));
+        el.textContent = String(val);
+        if (t < 1) requestAnimationFrame(step);
+      };
+
+      requestAnimationFrame(step);
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          io.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.25 });
+
+    counterEls.forEach((el) => io.observe(el));
+  }
+
+  // Skill progress animation
+  const skillCards = Array.from(document.querySelectorAll('.skill-card[data-percent]'));
+  if (skillCards.length) {
+    const setSkill = (card) => {
+      const percent = Number(card.getAttribute('data-percent')) || 0;
+      const bar = card.querySelector('[data-bar]');
+      const pctText = card.querySelector('[data-percent]');
+
+      if (pctText) pctText.textContent = String(percent);
+      if (bar) bar.style.width = `${percent}%`;
+
+      // accessibility aria update
+      const progress = card.querySelector('.progress[role="progressbar"]');
+      if (progress) {
+        progress.setAttribute('aria-valuenow', String(percent));
+      }
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          setSkill(entry.target);
+          io.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.25 });
+
+    skillCards.forEach((c) => io.observe(c));
+  }
+})();
+
 // Contact form: inline validation + EmailJS integration (no alert())
 (() => {
   const form = document.getElementById('contactForm');
   if (!form) return;
+
 
   const nameEl = document.getElementById('name');
   const emailEl = document.getElementById('email');
@@ -54,9 +195,9 @@
   const toastTitle = document.getElementById('toastTitle');
   const toastMessage = document.getElementById('toastMessage');
 
-  const EMAILJS_SERVICE_ID = 'service_lioyygz';
-  const EMAILJS_TEMPLATE_ID = 'template_j70xxpn';
-  const EMAILJS_PUBLIC_KEY = 'ZI8xucvtjoyGYORxL';
+  const EMAILJS_SERVICE_ID = 'service_fqtcfif';
+  const EMAILJS_TEMPLATE_ID = 'template_8h6eisc';
+  const EMAILJS_PUBLIC_KEY = '5vQmQM2YZlqwi71UI';
 
   const setFieldInvalid = (el, errorEl, message) => {
     el.classList.toggle('is-invalid', true);
@@ -158,8 +299,14 @@
         throw new Error('EmailJS SDK not loaded');
       }
 
-      // Initialize (safe to call multiple times)
-      window.emailjs.init(EMAILJS_PUBLIC_KEY);
+      // Initialize EmailJS (Browser v4)
+      // IMPORTANT: Only initialize if not already initialized to avoid duplicate init issues.
+      if (!window.emailjs.__isInitialized) {
+        window.emailjs.__isInitialized = true;
+        window.emailjs.init(EMAILJS_PUBLIC_KEY);
+        console.log("EmailJS Version:", window.emailjs?.version);
+      }
+
 
       const templateParams = {
         name: (nameEl?.value || '').trim(),
@@ -167,23 +314,42 @@
         subject: (subjectEl?.value || '').trim(),
         message: (messageEl?.value || '').trim(),
       };
-
+      console.log("Service:", EMAILJS_SERVICE_ID);
+      console.log("Template:", EMAILJS_TEMPLATE_ID);
+      console.log("Public:", EMAILJS_PUBLIC_KEY);
       await window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
 
       showToast('success', 'Sent!', 'Your message has been delivered successfully.');
       form.reset();
 
-      // Clear invalid states after reset
+      //  Clear invalid states after reset
       [nameEl, emailEl, messageEl].forEach((el) => el?.classList.remove('is-invalid'));
       if (nameError) nameError.textContent = '';
       if (emailError) emailError.textContent = '';
       if (messageError) messageError.textContent = '';
     } catch (err) {
-      showToast('error', 'Not sent', 'Something went wrong. Please try again later.');
-      // Keep form values so user can retry
+      // Detailed logging for debugging EmailJS "Account not found"
+      console.error('EMAILJS ERROR (raw):', err);
+      console.error('EMAILJS ERROR (text):', err?.text);
+      console.error('EMAILJS ERROR (message):', err?.message);
+      console.error('EMAILJS ERROR (status):', err?.status);
+      console.error('EMAILJS ERROR (code):', err?.code);
+      console.error('EMAILJS ERROR (details):', err?.details);
+
+      // If EmailJS returns nested error structures, surface them.
+      const apiErrorText =
+        err?.text ||
+        err?.message ||
+        err?.details?.message ||
+        err?.response?.text ||
+        JSON.stringify(err);
+
+      // Show the real error in console and toast
+      showToast('error', 'EmailJS failed', apiErrorText);
     } finally {
       setSending(false);
     }
+
   });
 })();
 

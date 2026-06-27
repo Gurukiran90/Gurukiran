@@ -3,41 +3,439 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Website</title>
+  <title>Guru Kiran — Full Stack Web Developer</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="#home" aria-label="Guru Kiran Home">
+        <span class="brand-mark" aria-hidden="true">GK</span>
+        <span class="brand-name">Guru Kiran</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+        <span class="nav-toggle-lines" aria-hidden="true"></span>
+      </button>
+
+      <ul class="nav-links" id="navMenu">
+        <li><a class="nav-link" href="#home" data-nav="home">Home</a></li>
+        <li><a class="nav-link" href="#about" data-nav="about">About</a></li>
+        <li><a class="nav-link" href="#skills" data-nav="skills">Skills</a></li>
+        <li><a class="nav-link" href="#projects" data-nav="projects">Projects</a></li>
+        <li><a class="nav-link" href="#contact" data-nav="contact">Contact</a></li>
       </ul>
+
+      <div class="nav-actions">
+        <a class="btn btn-outline" href="CV.pdf" download="Guru-Kiran-Resume.pdf">Resume</a>
+        <a class="btn btn-primary" href="#contact">Hire Me</a>
+      </div>
     </nav>
+
+    <div class="scroll-progress" aria-hidden="true">
+      <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+    </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-media" aria-hidden="true">
-      <div class="orb orb--1"></div>
-      <div class="orb orb--2"></div>
-      <div class="orb orb--3"></div>
+  <main>
+    <!-- HOME -->
+    <section id="home" class="hero" aria-label="Home">
+      <div class="hero-media" aria-hidden="true">
+        <div class="orb orb--1"></div>
+        <div class="orb orb--2"></div>
+        <div class="orb orb--3"></div>
+      </div>
+
+      <div class="container hero-inner">
+        <div class="hero-copy" data-reveal>
+          <h1 class="hero-title">Hi, I'm Guru Kiran</h1>
+
+          <div class="typing" aria-label="Role highlights">
+            <span class="typing-prefix">&nbsp;—&nbsp;</span>
+            <span class="typing-static">Full Stack Web Developer</span>
+            <span class="typing-cycle" aria-hidden="true"></span>
+          </div>
+
+          <p class="hero-description">
+I am a passionate Full Stack Web Developer who enjoys building responsive, scalable and user-friendly web applications using the MERN stack. I continuously learn new technologies and love solving real-world problems through clean code.
+          </p>
+
+          <div class="hero-ctas" aria-label="Primary actions">
+            <a class="btn btn-primary" href="#projects">View Projects</a>
+            <a class="btn btn-outline" href="Not ava" download="Guru-Kiran-Resume.pdf">Download Resume</a>
+            <a class="btn btn-ghost" href="#contact">Hire Me</a>
+          </div>
+
+          <div class="tech-floating" aria-label="Tech icons">
+            <span class="tech-pill" title="HTML">HTML</span>
+            <span class="tech-pill" title="CSS">CSS</span>
+            <span class="tech-pill" title="JavaScript">JavaScript</span>
+            <span class="tech-pill" title="Node.js">Node.js</span>
+            <span class="tech-pill" title="MongoDB">MongoDB</span>
+            <span class="tech-pill" title="GitHub">GitHub</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" data-reveal>
+          <div class="profile-wrap" aria-hidden="true">
+            <div class="profile-glow"></div>
+            <img src="Untitled design.png" alt="Profile photo" class="profile-image" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section about" aria-label="About">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2>About Me</h2>
+          <p>
+            Passionate full-stack developer focused on building clean, performant and user-friendly applications.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="card glass" data-reveal>
+            <h3>Introduction</h3>
+            <p>
+              Hello! I’m Guru Kiran. I enjoy turning ideas into products with a strong focus on frontend UX and
+              backend reliability.
+            </p>
+          </div>
+
+          <div class="card glass" data-reveal>
+            <h3>Education</h3>
+            <ul class="list">
+              <li>
+                <strong>Bachelor of Computer Applications (BCA)</strong>
+                <span class="muted">— Sri Ramakrishna Degree College (Autonomous)</span>
+              </li>
+              <li>
+                <strong>Current focus</strong>
+                <span class="muted">— MERN Stack Development</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="card glass" data-reveal>
+            <h3>Learning Focus</h3>
+            <div class="pill-row">
+              <span class="pill">Frontend</span>
+              <span class="pill">Backend</span>
+              <span class="pill">Database</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section skills" aria-label="Skills">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2>Skills</h2>
+          <p>Hover for details. Animated progress bars when the section becomes visible.</p>
+        </div>
+
+        <div class="skills-grid" id="skillsGrid">
+          <article class="skill-card glass" data-skill="HTML" data-percent="92" data-icon="🧱">
+            <div class="skill-top">
+              <span class="skill-icon" aria-hidden="true">🧱</span>
+              <h3>HTML</h3>
+            </div>
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="HTML proficiency">
+              <div class="progress-bar" data-bar></div>
+            </div>
+            <div class="skill-meta"><span class="skill-percent" data-percent>0</span>%</div>
+          </article>
+
+          <article class="skill-card glass" data-skill="CSS" data-percent="88" data-icon="🎨">
+            <div class="skill-top">
+              <span class="skill-icon" aria-hidden="true">🎨</span>
+              <h3>CSS</h3>
+            </div>
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="CSS proficiency">
+              <div class="progress-bar" data-bar></div>
+            </div>
+            <div class="skill-meta"><span class="skill-percent" data-percent>0</span>%</div>
+          </article>
+
+          <article class="skill-card glass" data-skill="JavaScript" data-percent="90" data-icon="⚡">
+            <div class="skill-top">
+              <span class="skill-icon" aria-hidden="true">⚡</span>
+              <h3>JavaScript</h3>
+            </div>
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="JavaScript proficiency">
+              <div class="progress-bar" data-bar></div>
+            </div>
+            <div class="skill-meta"><span class="skill-percent" data-percent>0</span>%</div>
+          </article>
+
+          <article class="skill-card glass" data-skill="Node.js" data-percent="82" data-icon="🟩">
+            <div class="skill-top">
+              <span class="skill-icon" aria-hidden="true">🟩</span>
+              <h3>Node.js</h3>
+            </div>
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Node proficiency">
+              <div class="progress-bar" data-bar></div>
+            </div>
+            <div class="skill-meta"><span class="skill-percent" data-percent>0</span>%</div>
+          </article>
+
+          <article class="skill-card glass" data-skill="Express.js" data-percent="80" data-icon="🚀">
+            <div class="skill-top">
+              <span class="skill-icon" aria-hidden="true">🚀</span>
+              <h3>Express.js</h3>
+            </div>
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Express proficiency">
+              <div class="progress-bar" data-bar></div>
+            </div>
+            <div class="skill-meta"><span class="skill-percent" data-percent>0</span>%</div>
+          </article>
+
+          <article class="skill-card glass" data-skill="MongoDB" data-percent="85" data-icon="🍃">
+            <div class="skill-top">
+              <span class="skill-icon" aria-hidden="true">🍃</span>
+              <h3>MongoDB</h3>
+            </div>
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="MongoDB proficiency">
+              <div class="progress-bar" data-bar></div>
+            </div>
+            <div class="skill-meta"><span class="skill-percent" data-percent>0</span>%</div>
+          </article>
+
+          <article class="skill-card glass" data-skill="Git" data-percent="78" data-icon="🔁">
+            <div class="skill-top">
+              <span class="skill-icon" aria-hidden="true">🔁</span>
+              <h3>Git</h3>
+            </div>
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Git proficiency">
+              <div class="progress-bar" data-bar></div>
+            </div>
+            <div class="skill-meta"><span class="skill-percent" data-percent>0</span>%</div>
+          </article>
+
+          <article class="skill-card glass" data-skill="GitHub" data-percent="84" data-icon="🐙">
+            <div class="skill-top">
+              <span class="skill-icon" aria-hidden="true">🐙</span>
+              <h3>GitHub</h3>
+            </div>
+            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="GitHub proficiency">
+              <div class="progress-bar" data-bar></div>
+            </div>
+            <div class="skill-meta"><span class="skill-percent" data-percent>0</span>%</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section projects" aria-label="Projects">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2>Projects</h2>
+          <p>Clean UI, solid logic, and practical features.</p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="project-card glass" data-reveal>
+            <div class="project-media" aria-hidden="true"></div>
+            <div class="project-body">
+              <h3>Attendance Management System</h3>
+              <p>Track attendance efficiently with roles, records, and searchable reports.</p>
+              <div class="tech-tags">Tech Stack: Node.js, Express.js, MongoDB</div>
+              <div class="project-actions">
+                <a class="btn btn-small" href="https://github.com/infopersonal588-dotcom/attendace-app" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn btn-small btn-outline" href="https://attendace-app-tv02.onrender.com" target="_blank" rel="noopener">Live Demo</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card glass" data-reveal>
+            <div class="project-media project-media--two" aria-hidden="true"></div>
+            <div class="project-body">
+              <h3>Authentication System (JWT)</h3>
+              <p>Secure authentication with JWT, protected routes, and session handling.</p>
+              <div class="tech-tags">Tech Stack: Node.js, Express.js, JWT, MongoDB</div>
+              <div class="project-actions">
+                <a class="btn btn-small" href="https://github.com/infopersonal588-dotcom/authentication-system-crud-jwt
+" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn btn-small btn-outline" href="https://authentication-system-crud-jwt-1.onrender.com  " target="_blank" rel="noopener">Live Demo</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card glass" data-reveal>
+            <div class="project-media project-media--three" aria-hidden="true"></div>
+            <div class="project-body">
+              <h3>Todo App</h3>
+              <p>A fast, responsive todo experience with stateful tasks and clean UX.</p>
+              <div class="tech-tags">Tech Stack: HTML, CSS, JavaScript</div>
+              <div class="project-actions">
+                <a class="btn btn-small" href="https://github.com/infopersonal588-dotcom/todo-application-react" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn btn-small btn-outline" href="https://todoapplication.netlify.app" target="_blank" rel="noopener">Live Demo</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card glass" data-reveal>
+            <div class="project-media project-media--four" aria-hidden="true"></div>
+            <div class="project-body">
+              <h3>Portfolio Website</h3>
+              <p>Premium single-page portfolio with glass UI, smooth animations and responsive layout.</p>
+              <div class="tech-tags">Tech Stack: HTML, CSS, JavaScript</div>
+              <div class="project-actions">
+                <a class="btn btn-small" href="https://github.com/infopersonal588-dotcom" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn btn-small btn-outline" href="https://gurukiranbca.netlify.app/" target="_blank" rel="noopener">Live Demo</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATISTICS -->
+    <section class="section stats" aria-label="Statistics">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2>Highlights</h2>
+          <p>Quick stats recruiters love to see.</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card glass" data-reveal>
+            <div class="stat-value" data-counter data-target="12">0</div>
+            <div class="stat-label">Projects Completed</div>
+          </div>
+          <div class="stat-card glass" data-reveal>
+            <div class="stat-value" data-counter data-target="25">0</div>
+            <div class="stat-label">Happy Client</div>
+          </div>
+          <div class="stat-card glass" data-reveal>
+            <div class="stat-value" data-counter data-target="08">0</div>
+            <div class="stat-label">Technologies Learned</div>
+          </div>
+          <div class="stat-card glass" data-reveal>
+            <div class="stat-value" data-counter data-target="06  ">0</div>
+            <div class="stat-label">GitHub Repositories</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact" aria-label="Contact">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2>Contact</h2>
+          <p>Send a message or Email</p>
+        </div>
+
+        <div class="contact-layout">
+          <aside class="contact-left" data-reveal>
+            <div class="card glass">
+              <h3>Reach out</h3>
+              <ul class="contact-links">
+                <li><strong>Email</strong><a href="mailto:infopersonal588@gmail.com">infopersonal588@gmail.com</a></li>
+                <li><strong>Phone</strong><a href="tel:+91 7702302296">+91 7702302996</a></li>
+                <li><strong>Location</strong><span>India</span></li>
+                <li><strong>GitHub</strong><a href="https://github.com/infopersonal588-dotcom" target="_blank" rel="noopener">github.com/gurukiran</a></li>
+                <li><strong>LinkedIn</strong><a href="https://www.linkedin.com/in/gurukiran96/  " target="_blank" rel="noopener">linkedin.com/in/gurukiran</a></li>
+              </ul>
+
+              <div class="social-row" aria-label="Social buttons">
+                <a class="btn btn-small" href="https://github.com/infopersonal588-dotcom" target="_blank" rel="noopener">GitHub</a>
+                <a class="btn btn-small btn-outline" href="https://www.linkedin.com/in/gurukiran96/ " target="_blank" rel="noopener">LinkedIn</a>
+              </div>
+            </div>
+          </aside>
+
+          <div class="contact-right" data-reveal>
+            <div class="contact-form-wrap glass">
+              <h3 class="contact-form-title">Let’s work together</h3>
+
+              <form id="contactForm" novalidate>
+                <div class="grid">
+                  <div class="field">
+                    <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required minlength="2" aria-required="true" />
+                    <label for="name">Name</label>
+                    <div class="error" id="nameError" aria-live="polite"></div>
+                  </div>
+
+                  <div class="field">
+                    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required aria-required="true" />
+                    <label for="email">Email</label>
+                    <div class="error" id="emailError" aria-live="polite"></div>
+                  </div>
+                </div>
+
+                <div class="field" style="margin-top:14px;">
+                  <input type="text" id="subject" name="subject" placeholder="Subject (optional)" autocomplete="off" />
+                  <label for="subject">Subject</label>
+                </div>
+
+                <div class="field" style="margin-top:14px;">
+                  <textarea id="message" name="message" placeholder="Your message" required minlength="10" aria-required="true"></textarea>
+                  <label for="message">Message</label>
+                  <div class="error" id="messageError" aria-live="polite"></div>
+                </div>
+
+                <div class="actions">
+                  <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="spinner" id="spinner" aria-hidden="true"></span>
+                    <span id="submitText">Send Message</span>
+                  </button>
+                </div>
+
+                <div class="toast" id="formToast" role="status" aria-live="polite">
+                  <span class="dot" aria-hidden="true"></span>
+                  <div>
+                    <h4 id="toastTitle">Message</h4>
+                    <p id="toastMessage"></p>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="brand-row">
+          <span class="brand-mark" aria-hidden="true">GK</span>
+          <span class="footer-name">Guru Kiran</span>
+        </div>
+        <p class="footer-sub">Built with HTML • CSS • JavaScript</p>
+      </div>
+
+      <ul class="footer-links" aria-label="Footer navigation">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="footer-social" aria-label="Social links">
+        <a class="social-icon" href="https://github.com/infopersonal588-dotcom" target="_blank" rel="noopener" aria-label="GitHub">GH</a>
+        <a class="social-icon" href="https://www.linkedin.com/in/gurukiran96/" target="_blank" rel="noopener" aria-label="LinkedIn">IN</a>
+        <a class="social-icon" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+        <a class="social-icon" href="mailto:infopersonal588@gmail.com" aria-label="Email">@</a>
+      </div>
+
+      <div class="footer-copy">© 2026 Guru Kiran</div>
     </div>
-
-    <h1>Welcome to My Website</h1>
-    <p>Modern visuals, smooth motion, and premium UI details.</p>
-
-    <div class="hero-cta">
-      <button class="trending-btn" type="button">Explore</button>
-    </div>
-  </section>
-
-  <footer>
-    <p>
-      Developed by Guru Kiran — All rights reversed.
-    </p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="scripts.js"></script>
 </body>
 </html>
